@@ -1,82 +1,52 @@
-# Predictive Modeling and Risk Stratification in Breast Cancer Diagnosis Using Machine Learning
+# Breast Cancer Diagnosis using Machine Learning
 
-## Project Objective
-
-To develop, evaluate, and interpret multiple machine learning models to distinguish between benign and malignant breast tumors. The project also identifies key diagnostic biomarkers and applies statistical validation techniques to ensure clinical interpretability — aligning with core principles in **biostatistics** and **clinical data science**.
-
----
+This project explores multiple machine learning models to predict breast cancer diagnosis (Benign vs. Malignant) using the Wisconsin Breast Cancer Diagnostic dataset. We implement feature engineering, model evaluation, interpretability using LIME, and advanced hyperparameter tuning.
 
 ## Dataset
 
-- **Source:** Breast Cancer Wisconsin (Diagnostic) dataset  
-- **Features:** 30 numeric features (mean, worst, and standard error of various cell nucleus characteristics)  
-- **Target:** `Diagnosis` — `M` (Malignant), `B` (Benign)
+- **Source**: UCI Machine Learning Repository  
+- **Name**: Breast Cancer Wisconsin (Diagnostic)  
+- **Features**: 30 numeric features extracted from cell nuclei  
+- **Target**: Diagnosis (`M` = Malignant, `B` = Benign)
 
----
+## Models Used
 
-## Models Implemented
+| Model                  | Accuracy | Precision | Recall  | F1 Score | AUC-ROC |
+|------------------------|----------|-----------|---------|----------|---------|
+| Logistic Regression    | 94.74%   | 0.9737    | 0.8810  | 0.9250   | 0.9921  |
+| Random Forest          | 97.37%   | 1.0000    | 0.9286  | 0.9630   | 0.9929  |
+| Support Vector Machine | 90.35%   | 1.0000    | 0.7381  | 0.8493   | 0.9808  |
+| K-Nearest Neighbors    | 91.23%   | 0.9706    | 0.7857  | 0.8684   | 0.9547  |
+| Gradient Boosting      | 96.49%   | 1.0000    | 0.9048  | 0.9500   | 0.9947  |
+| Naive Bayes            | 93.86%   | 1.0000    | 0.8333  | 0.9091   | 0.9934  |
 
-| Model                | Description                               |
-|---------------------|-------------------------------------------|
-| Logistic Regression | Interpretable baseline model              |
-| Random Forest       | Ensemble model with feature importance    |
-| Support Vector Machine | Effective in high-dimensional spaces    |
-| K-Nearest Neighbors | Instance-based learning                   |
-| Gradient Boosting   | Boosted trees for accuracy and robustness |
-| Naive Bayes         | Probabilistic model for baseline          |
+## Key Features
 
----
+- **Data Preprocessing**  
+  Missing value check, label encoding, feature scaling
 
-## Evaluation Metrics
+- **Model Building**  
+  Logistic Regression, Random Forest, SVM, KNN, Naive Bayes, Gradient Boosting
 
-Each model was evaluated using **5-Fold Cross-Validation** with the following metrics:
+- **Model Interpretation (Explainability)**  
+  Used LIME (Local Interpretable Model-Agnostic Explanations) for individual predictions
 
-- Accuracy  
-- Precision  
-- Recall  
-- F1 Score  
-- ROC-AUC  
-- Standard Deviation of all metrics (for statistical robustness)
+- **Model Evaluation**  
+  Accuracy, Precision, Recall, F1 Score, ROC-AUC, comparison bar plots
 
-Bar plots visualize each metric across models, including **error bars** for standard deviation.
+- **Hyperparameter Tuning**  
+  Used GridSearchCV for Random Forest and Gradient Boosting
 
----
+- **(Optional) Fairness Check**  
+  You can extend to check model bias against demographic groups (if features are available)
 
-## Model Interpretability
+## Visualization
 
-SHAP (SHapley Additive exPlanations) was used to interpret the **top predictive features**:
-- Worst Concave Points
-- Mean Radius
-- Worst Area
-- Worst Perimeter
+- LIME explanations of local predictions  
+- Bar charts comparing evaluation metrics across models  
+- Confusion matrices
 
-These features are known clinical biomarkers and help in building **trustworthy** ML systems for healthcare.
+## Installation
 
----
-
-| Model                | Accuracy (%) | Precision (%) | Recall (%) | F1 Score (%) | AUC (%) |
-|----------------------|--------------|---------------|------------|--------------|---------|
-| Logistic Regression  | 96.5%        | 97.5%         | 92.9%      | 95.1%        | 95.7%   |
-| Gradient Boosting    | 96.5%        | 100.0%        | 90.5%      | 95.0%        | 95.2%   |
-| Random Forest        | 95.6%        | 100.0%        | 88.1%      | 93.7%        | 94.0%   |
-| KNN                  | 75.4%        | 76.9%         | 47.6%      | 58.8%        | 69.6%   |
-| SVM                  | 63.2%      | 0.0%          | 0.0%       | 0.0%         | 50.0%   |
-| Naive Bayes          | 62.3%        | 0.0%          | 0.0%       | 0.0%         | 49.3%   |
-
----
-
-## Clinical Implications
-
-- Designed to assist radiologists/pathologists in early tumor classification.
-- SHAP-based interpretation ensures transparency and aligns with **clinical guidelines**.
-- Avoids overfitting by incorporating **statistical validation** with standard deviation analysis.
-
----
-
-## Future Work
-
-- Hyperparameter tuning using GridSearchCV or Optuna
-- Incorporate additional clinical or genetic data
-- Build a web-based diagnostic tool using Streamlit or Flask
-- Extend to **survival analysis** or **time-to-event modeling**
-- Validate the model on an **external dataset**
+```bash
+pip install -r requirements.txt
